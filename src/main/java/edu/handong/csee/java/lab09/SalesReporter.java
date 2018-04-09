@@ -18,9 +18,9 @@ public class SalesReporter {
 		for(int i = 0; i < numberOfAssociate; i++ ) {
 			team[i] = new SalesAssociate();
 			System.out.println("Enter data for associate number " + (i+1));
-			System.out.print("Enter name of sales associate");
+			System.out.print("Enter name of sales associate: ");
 			team[i].setName(keyboard.next());
-			System.out.println("Enter associate's sales: ");
+			System.out.print("Enter associate's sales: ");
 			team[i].setSales(keyboard.nextInt());
 		}
 		
@@ -40,11 +40,53 @@ public class SalesReporter {
 		averageSales = sum / numberOfAssociate;
 	}
 	
+	public void displayResults() {
+		
+		System.out.println("\nAverage sales per associate is $" + averageSales);
+		System.out.println("The highest sales figure is $" + highestSales);
+		
+		System.out.println("The following had the highest sales:");
+		
+		for(int i = 0; i < numberOfAssociate; i++) {
+			if(highestSales == team[i].getSales()) {
+				displayAssociateInfo(team[i]);
+			}
+		}
+		
+		System.out.println("The rest performed as follows:");
+		
+		for(int i = 0; i < numberOfAssociate; i++) {
+			if(highestSales != team[i].getSales()) {
+				displayAssociateInfo(team[i]);
+			}
+		}
+		
+	}
 	
+	private void displayAssociateInfo(SalesAssociate associate) {
+		System.out.println("Name: " + associate.getName());
+		System.out.println("Sales: " + associate.getSales());
+		printCompAverage(associate);
+	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private void printCompAverage(SalesAssociate associate) {
+		double diff = averageSales - associate.getSales(); 
+		if(diff > 0) 
+			System.out.println("$" + diff + " below the average.");
 
+		if(diff < 0)
+			System.out.println("$" + -1*diff + " above the average.");
+		
+		if(diff == 0)
+			System.out.println("Sales is average");
+	}
+
+	public static void main(String[] args) {
+		SalesReporter report = new SalesReporter();
+		
+		report.getData();
+		report.computeStats();
+		report.displayResults();
 	}
 
 }
