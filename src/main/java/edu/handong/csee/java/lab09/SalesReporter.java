@@ -9,14 +9,13 @@ public class SalesReporter {
 	private int numberOfAssociate; 
 	
 	public void getData() {
-		int associateNum;
 		
 		System.out.println("Enter number of sales associates:");
 		Scanner keyboard = new Scanner(System.in);
-		associateNum  = keyboard.nextInt();
-		team = new SalesAssociate[associateNum];
+		numberOfAssociate  = keyboard.nextInt();
+		team = new SalesAssociate[numberOfAssociate];
 		
-		for(int i = 0; i < associateNum; i++ ) {
+		for(int i = 0; i < numberOfAssociate; i++ ) {
 			team[i] = new SalesAssociate();
 			System.out.println("Enter data for associate number " + (i+1));
 			System.out.print("Enter name of sales associate");
@@ -29,8 +28,19 @@ public class SalesReporter {
 	}
 	
 	public void computeStats() {
+		double sum = 0;
+		highestSales = team[0].getSales();
 		
+		for(int i = 0; i < numberOfAssociate; i++) {
+			sum += team[i].getSales();
+			if(highestSales < team[i].getSales())
+				highestSales = team[i].getSales();
+		}
+		
+		averageSales = sum / numberOfAssociate;
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
