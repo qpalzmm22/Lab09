@@ -1,9 +1,9 @@
 package edu.handong.csee.java.lab09; // makes it a package
 
-import java.util.ArrayList;	
+import java.util.ArrayList;	// import ArrayList to use ArrayList ADT instead of array
 import java.util.Scanner;	// import Scanner to use nextInt() and next()
 /**
- * This class implements a sales report. This class gains information about sales assoicates and
+ * This class implements a sales report. This class gains information about sales associates and
  * checks who has the highest sales and obtain the average sales
  * @author qpalzmm22
  *
@@ -11,7 +11,7 @@ import java.util.Scanner;	// import Scanner to use nextInt() and next()
 public class SalesReporter {	// a class to get input from user, calculate highest sales and average and print the result
 	private double highestSales;	// a variable to store highest sales
 	private double averageSales;	// a variable to store average sales among sales man
-	private ArrayList<SalesAssociate> team;	// an array to store salesAssociates
+	private ArrayList<SalesAssociate> team;	// an ArrayList to store salesAssociates information
 	
 	/**
 	 * This method ask how many info about sales associate the user is going to get and
@@ -20,26 +20,25 @@ public class SalesReporter {	// a class to get input from user, calculate highes
 	public void getData() {	// gets data from user
 		
 		
-		team = new ArrayList<SalesAssociate>();	// create array that has length of numberOfAssociate
-		boolean done = false;
-		int i = 0;
+		team = new ArrayList<SalesAssociate>();	// instantiate team as a ArrayList with type of SalesAssociate
+		boolean done = false;	// an variable to check if the user is done with inputing information about sales associates
+		int i = 0;	// a variable of index counter
 		
 		Scanner keyboard = new Scanner(System.in);
 		
-		while(!done) { // Gets info as much as numberOfAssocaite 
-			
-			SalesAssociate newsalesman = new SalesAssociate();	// instantiate each SalesAssociate
+		while(!done) { // while user is not done
+			SalesAssociate newsalesman = new SalesAssociate();	// create a variable, newsalesman instantiate with SalesAssociate
 			System.out.println("Enter data for associate number " + (i+1));	// ask user for data
-			i++;
+			i++;															// increase the index counter
 			System.out.print("Enter name of sales associate: ");	// ask name of the sales associate
-			newsalesman.setName(keyboard.next());						// sets the name of i-th sales associate by user-typed name
+			newsalesman.setName(keyboard.next());						// sets the name of new sales associate by user-typed name
 			System.out.print("Enter associate's sales: ");			// ask sales number of the sales associate
-			newsalesman.setSales(keyboard.nextInt());// sets the sales number of i-th sales associate by user-typed value
+			newsalesman.setSales(keyboard.nextInt());// sets the sales number of new sales associate by user-typed value
 			
-			team.add(newsalesman);
-			System.out.println("Do you want to add more sales man?(y/n)");
-			if(keyboard.next().equalsIgnoreCase("n")) {
-				done = !done;
+			team.add(newsalesman);					// add the new salesman into the ArrayList
+			System.out.println("Do you want to add more sales man?(y/n)");	// ask user if he or she is going to put more data
+			if(keyboard.next().equalsIgnoreCase("n")) {	// check if the user's answer is "N" or "n"
+				done = true;							// if so, make done = true 
 			}
 		}
 		
@@ -50,15 +49,15 @@ public class SalesReporter {	// a class to get input from user, calculate highes
 	 */
 	public void computeStats() {	// calculates the highest sales and average sales
 		double sum = 0;				// counter variable for calculating average
-		highestSales = team.get(0).getSales();	// sets default to team[0].getSales() to avoid possible range problem
+		highestSales = team.get(0).getSales();	// sets default to team.get(0).getSales() to avoid possible range problem
 		
-		for(int i = 0; i < team.size(); i++) {	// continue as much as numberOfAssociate
+		for(int i = 0; i < team.size(); i++) {	// continue as much as size of team
 			sum += team.get(i).getSales();					// add the sales and store it in sum
 			if(highestSales < team.get(i).getSales())		// if the sales is bigger than highestSales
 				highestSales = team.get(i).getSales();		// make that the highestSales
 		}
 		
-		averageSales = sum / team.size();			// divide the sum by number of associate to get the average 
+		averageSales = sum / team.size();			// divide the sum by number of associates to get the average 
 	}
 	/**
 	 * this method displays the result.
@@ -72,15 +71,15 @@ public class SalesReporter {	// a class to get input from user, calculate highes
 		
 		System.out.println("The following had the highest sales:");					// a statement
 		
-		for(int i = 0; i < team.size(); i++) {	// repeat as much as numberOfAssociate
-			if(highestSales == team.get(i).getSales()) {	// if the highestSales number is same as the sales associates sales amount
+		for(int i = 0; i < team.size(); i++) {	// repeat as much as size of team
+			if(highestSales == team.get(i).getSales()) {	// if the highestSales number is same as the sales associates' sales amount
 				displayAssociateInfo(team.get(i));			// then print the information of that associate
 			}
 		}
 		
 		System.out.println("The rest performed as follows:");	// a statement
 		
-		for(int i = 0; i < team.size(); i++) {	// repeat as much as numberOfAssociate
+		for(int i = 0; i < team.size(); i++) {	// repeat as much as size of team
 			if(highestSales != team.get(i).getSales()) {	// if the highestSales number is not same as the sales associates' sales number
 				displayAssociateInfo(team.get(i));			// then print the information of that associate
 			}
